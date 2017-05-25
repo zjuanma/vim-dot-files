@@ -1,0 +1,516 @@
+" -------------  Bundle begin  -------------------------------------------------
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#rc()
+
+" let Vundle manage Vundle required!
+Bundle 'gmarik/Vundle.vim'
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/nerdtree.git'
+"Bundle 'jistr/vim-nerdtree-tabs'
+"Bundle 'ervandew/supertab'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tacahiroy/ctrlp-funky'
+Bundle 'tpope/vim-fugitive'
+" Bundle 'tpope/vim-rails'
+" Bundle 'tpope/vim-rake.git'
+" Bundle 'tpope/vim-bundler.git'
+" Bundle 'tpope/vim-rvm.git'
+Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'rking/ag.vim'
+"Bundle 'Lokaltog/powerline'
+Bundle 'bling/vim-airline'
+" Bundle 'lucapette/vim-ruby-doc'
+Bundle 'heavenshell/vim-jsdoc'
+" Bundle 'mattn/gist-vim'
+" Bundle 'mattn/webapi-vim'
+" Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-surround.git'
+Bundle 'tpope/vim-repeat'
+" Bundle 'matze/vim-move'
+Bundle 'Yggdroot/indentLine'
+" Bundle 'sjl/gundo.vim'
+Bundle 'jiangmiao/auto-pairs'
+
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
+
+" Bundle 'justincampbell/vim-eighties'
+" Bundle 'mhinz/vim-signify'
+Bundle 'kablamo/vim-git-log'
+"Bundle 'tpope/vim-obsession'
+Bundle 'tpope/vim-endwise'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'kien/rainbow_parentheses.vim'
+"Bundle 'altercation/vim-colors-solarized'
+Bundle 'jpo/vim-railscasts-theme'
+Bundle 'zeis/vim-kolor'
+Bundle 'tomasr/molokai'
+"Bundle 'terryma/vim-multiple-cursors'
+Bundle 'artnez/vim-wipeout'
+
+"Bundle 'szw/vim-tags'
+"Bundle 'xolox/vim-easytags'
+Bundle 'ludovicchabant/vim-gutentags'
+Bundle 'xolox/vim-misc'
+"Bundle 'wesQ3/vim-windowswap'
+
+"Comprobacion codigo
+Bundle 'scrooloose/syntastic'
+Bundle 'ngmy/vim-rubocop'
+"Bundle 'Valloric/YouCompleteMe'
+
+"Debug
+"Bundle 'astashov/vim-ruby-debugger'
+" Bundle 'joonty/vdebug.git'
+
+Bundle 'dkprice/vim-easygrep'
+
+" Github repos of the user 'vim-scripts'
+" => can omit the username part
+Bundle 'L9'
+
+" Vue support
+Bundle 'posva/vim-vue'
+
+"Bundle 'FuzzyFinder'
+
+" non github repos
+"Bundle 'git://git.wincent.com/command-t.git'
+" ...
+
+filetype plugin indent on     " required!
+
+" -------------  Bundle end -------------------------------------------------
+
+" ------------------ Personalizacion ----------------------------------
+"
+"Color
+
+"colorscheme railscasts
+"set guifont=Monospace\ Bold\ 12
+"set guifont=Monospace\ 11
+
+"Mapear leader key
+let mapleader = ","
+
+
+" NERDTree
+map <Leader>nn :NERDTreeToggle<CR><C-w>l
+"map <Leader>nt <plug>NERDTreeTabsToggle<CR>
+"map <Leader>nn :NERDTreeFind<CR>
+" Open nerdtree on startup if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Index ctags from any project, including those outside Rails
+"map <Leader>tr :!ctags -R --exclude=.git --exclude=logs --exclude=doc --exclude=public . $(bundle list --paths)<CR>
+map <Leader>tr :!ctags -R --exclude=.git --exclude=logs --exclude=doc --exclude=public .<CR>
+" nmap <Leader>tj <C-]>
+" nmap <Leader>tj :tag <C-R><C-W><CR>
+nmap <Leader>tj :tag <C-R><C-W><CR>
+nmap <Leader>tc <C-t>
+nmap <Leader>tl :tags<CR>
+nmap <Leader>tn :tn<CR>
+nmap <Leader>tp :tp<CR>
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ve :e $MYVIMRC<CR>
+nmap <silent> <leader>vs :so $MYVIMRC<CR>
+
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
+
+" Format json
+map <leader>fj  <Esc>:%!python -m json.tool<CR>
+" Format xml
+map <leader>fx  <Esc>:%s/\(<[^>]*>\)/\1\r/g<CR>
+
+" Correct typical mistakes (capital letters)
+nmap :W :w
+nmap :Q :q
+nmap :WQ :wq
+nmap :wQ :wq
+nmap :Wq :wq
+
+"nnoremap <leader>w <C-W>w
+" Copy/paste from system clipboard
+"set clipboard=unnamed
+set clipboard=unnamedplus  " use the clipboards of vim and win
+set paste               " Paste from a windows or from vim
+set go+=a               " Visual selection automatically copied to the clipboard"
+" vmap <C-c> "+yi
+" vmap <C-x> "+c
+" vmap <C-v> c<ESC>"+p
+" imap <C-v> <ESC>"+pa
+" nnoremap <leader>cy "+y<CR>
+" nnoremap <leader>cp "+gP<CR>
+"nnoremap <C-S>y "+y<CR>
+"nnoremap <C-S>p "+gP<CR>
+
+"try
+    " Mark at 80 characters
+"    set colorcolumn=81
+"catch
+"endtry
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+""""""""""""""""""""""""""""""
+" => tagList plugin
+""""""""""""""""""""""""""""""
+"map <leader>tt :Tlist <CR>
+
+"Utiliza un tab existente en lugar de abrir uno nuevo
+set switchbuf=useopen
+
+set novisualbell
+set noerrorbells
+
+set number
+set showbreak=...
+"set wrap linebreak nolist
+
+
+" Formatting (some of these are for coding in C and C++)
+set nowrap  "don't wrap lines
+set backspace=indent,eol,start
+set ts=2 " Tabs are 2 spaces
+set bs=2 " Backspace over everything in insert mode
+set shiftwidth=2 " Tabs under smart indent
+"set nocp incsearch
+set cinoptions=:0,p0,t0
+set cinwords=if,else,while,do,for,switch,case
+set formatoptions=tcqr
+set cindent
+set autoindent
+set copyindent
+set smarttab
+set expandtab
+set nobk
+set showmatch
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+
+
+"statusline setup
+set statusline=%f       "tail of the filename
+
+"Git
+set statusline+=%{fugitive#statusline()}
+
+"RVM
+" set statusline+=%{exists('g:loaded_rvm')?rvm#statusline():''}
+
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+set laststatus=2
+
+
+"hide buffers when not displayed
+set hidden
+
+if has("gui_running")
+    set guitablabel=%M%t
+    set lines=40
+    set columns=120
+    if has("gui_gnome")
+        set guifont=Monospace\ Bold\ 9
+    endif
+else
+    "dont load csapprox if there is no gui support - silences an annoying warning
+    " let g:CSApprox_loaded = 1
+endif
+
+if $TERM =~ '256color'
+    "tell the term has 256 colors
+    set t_Co=256
+    set columns=100
+   " colorscheme railscasts2
+    colorscheme railscasts
+else
+  colorscheme default
+endif
+
+"map to CommandT TextMate style finder
+"nnoremap <leader>t :CommandT<CR>
+
+"map Q to something useful
+noremap Q gq
+
+"key mapping for Gundo
+nnoremap <F4> :GundoToggle<CR>
+
+"key mapping for saving file
+nmap <C-s> :w<CR>
+
+"key mapping for tab navigation
+nmap <S-Tab> gt
+nmap <C-S-Tab> gT
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set list
+set listchars=tab:▸\ ,eol:¬,trail:.,nbsp:.,extends:#
+
+set pastetoggle=<F2>
+
+" Backups & Files
+set backup                   " Enable creation of backup file.
+set backupdir=~/.vim/backups " Where backups will go.
+set directory=~/.vim/tmp     " Where temporary files will go.
+set noswapfile
+
+"Invisible character colors
+hi Nontext guifg=#4a4a59
+hi SpecialKey guifg=#4a4a59
+
+" Completition use currrent file and ctags
+"set complete=.,t
+
+" Disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+nnoremap j gj
+nnoremap k gk
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+map <leader>r :RainbowParenthesesToggle<CR>
+
+"YouCompleteMe
+" let g:ycm_collect_identifiers_from_tags_files = 0
+" map <leader>ycmr :YcmRestartServer<CR>
+
+"Coffescript
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+
+" Eighties
+let g:eighties_enabled = 1
+let g:eighties_minimum_width = 80
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore tmp
+      \ --ignore vendor
+      \ --ignore uploads
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+" bind <leader>f to grep word under cursor
+nnoremap <leader>gg :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap <leader>gt :grep! "TODO\\|FIXME"<CR>:cw<CR><CR>
+nnoremap <leader>gs :grep! "" \| cw<Left><Left><Left><Left><Left><Left>
+vnoremap <leader>g "gy:grep! "<C-R>g"<CR>:cw<CR>
+
+"Debugger
+"set statusline=%{ruby_debugger#statusline()}
+"let g:ruby_debugger_debug_mode = 1
+""let g:ruby_debugger_executable = "bundle exec rdebug-vim"
+""let g:ruby_debugger_executable = "rdebug-vim"
+"let g:ruby_debugger_executable = "BUNDLE_GEMFILE=Gemfile.local bundle exec rdebug-vim"
+
+"Espacios al final de linea
+match ErrorMsg '\s\+$'
+nnoremap <Leader>rtw :%s/\s\+$//e<CR>
+
+"Tabgar
+nnoremap <Leader>tt :TagbarToggle<CR>
+
+"Fugitive
+"reset in gstatus
+autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
+
+"Windows resize
+nmap <right>  :3wincmd <<cr>
+nmap <left> :3wincmd ><cr>
+nmap <down>    :3wincmd +<cr>
+nmap <up>  :3wincmd -<cr>
+
+"Syntactic
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_aggregate_errors = 1
+"mark syntax errors with :signs
+let g:syntastic_enable_signs=1
+
+"Marca en la columna 80
+set colorcolumn=80
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+nmap <leader>bd :bdel<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>bb :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+
+" Close all open buffers except current
+" nmap <leader>ba :%bd\|e#<CR>
+nnoremap <leader>ba :Wipeout!<CR>
+
+" Vdebug
+"let g:vdebug_options["break_on_open"] = 0
+"
+" Vim-tags
+let g:vim_tags_auto_generate = 1
+let g:vim_tags_ctags_binary = '/usr/bin/ctags'
+
+" Explorer Mode
+let g:netrw_liststyle=3
+"map <leader>nt :Explore<cr>
+
+" load plugins, load indent to current file
+filetype plugin on
+filetype indent on
+
+" CtrlP
+hi def link CtrlPMatch CursorLine
+"let g:ctrlp_cmd = 'exe "CtrlP".get(["", "Buffer", "MRU"], v:count)'
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_switch_buffer = 'Et'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git\|node_modules\|bin\|\.hg\|\.svn\|build\|log\|resources\|coverage\|doc\|tmp\|public/assets\|vendor\|Android',
+  \ 'file': '\.jpg$\|\.exe$\|\.so$\|tags$\|\.dll$'
+  \ }
+nnoremap <C-p><C-p> :CtrlPBuffer<cr>
+
+" CtrlP Funky
+let g:ctrlp_extensions = ['funky, mixed, dir']
+let g:ctrlp_funky_multi_buffers = 1
+
+" Make those debugger statements painfully obvious
+au BufEnter *.rb syn match error contained "\<byebug\>"
+au BufEnter *.rb syn match error contained "\<debugger\>"
+
+cnoreabbrev W w
+cnoreabbrev Q q
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Ignore images and log files
+set wildignore+=*.gif,*.jpg,*.png,*.log
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+" Ignore rails temporary asset caches
+set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
+
+" Ignore custom folders
+set wildignore+=*/resources/*
+
+" Ignore node modules
+set wildignore+=node_modules/*
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+
+" Disable osx index files
+set wildignore+=.DS_Store
+
+" -- Easytags
+"let g:easytags_async=1
+
+" -- Ag
+let g:ag_highlight=1
+
+" -- Gutentags
+set statusline+=%{gutentags#statusline()}
+
+" Byebug
+" Add the byebug line with <Leader>bp
+map <Leader>bp obyebug;<esc>:w<cr>
+
+" quickfix list for breakpoints
+nmap <Leader>bi :Ag "byebug[;\|_]"<CR>
+
+" Set // to search the current visual selection
+vnoremap // y/<C-R>"<CR>"
+
+" Set up easy quickfix navigation with <c-b> and <c-n>
+" next/prev quicklist item
+nmap <c-b> :cprevious<CR>
+nmap <c-n> :cnext<CR>
+
+
+" sessions
+map <leader>ss ;mksession! ~/.vim_tmp/last_session<cr>
+map <leader>sl ;source ~/.vim_tmp/last_session<cr>
+
+
+" Undo
+set undofile                " Save undo's after file closes
+set undodir=~/.vim_undo     " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+
+
+" Search word
+map <leader>ws :Ag "<C-R><C-W>"<CR>
+map <leader>ww :Ag "<C-R><C-W>" 
+
+" ------------------ Personalizacion Fin ---------------------------
+
+

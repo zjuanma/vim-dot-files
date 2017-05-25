@@ -1,0 +1,7 @@
+home/.vim/bundle
+!home/.vim/bundle/Vundle.vim
+home/.vim/.netrwhist
+*.swp
+home/.vim/backups
+home/.vim/colors
+home/.vim/tmp
